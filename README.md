@@ -34,15 +34,15 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshots/mobile.ppg);
-![](./screenshots/desktop.ppg);
-![](./screenshots/desktop2.ppg);
+![](./screenshot/mobile.png)
+![](./screenshot/desktop.png)
+![](./screenshot/desktop2.png)
 
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: (https://github.com/Dev-sadeeq/weather-app)
+- Live Site URL: (https://dev-sadeeq.github.io/weather-app/)
 
 ## My process
 
