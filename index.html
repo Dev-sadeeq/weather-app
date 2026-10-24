@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./output.css">
+    <title>Weather App</title>
+</head>
+
+<body>
+    <div class="w-full max-w-287.5">
+        <header class="flex justify-between items-center">
+            <img src="./assets/images/logo.svg" alt="logo">
+
+            <div class="relative inline-block text-left">
+                <button id="units-btn" aria-haspopup="true" aria-expanded="false" aria-label="Toggle units menu"
+                    class="inline-flex items-center cursor-pointer bg-neutral-800 text-neutral-0 rounded-md px-3 py-1.5 hover:bg-neutral-700 transition-colors">
+                    <img src="./assets/images/icon-units.svg" alt="" class="w-4 h-4 mr-2 pointer-events-none">
+                    <span class="text-Neutral-0">Units</span>
+                    <img src="./assets/images/icon-dropdown.svg" alt="dropdown arrow"
+                        class="w-4 h-4 ml-2 pointer-events-none">
+                </button>
+
+                <div id="units-menu"
+                    class="absolute right-0 mt-2 w-56 bg-neutral-800 text-neutral-0 rounded-lg shadow-lg border border-neutral-700 p-4 hidden z-50">
+                    <div id="units-mode-btn"
+                        class="text-xs text-neutral-400 hover:text-neutral-0 font-semibold mb-2 cursor-pointer flex justify-between items-center">
+                        <span>Switch to Imperial</span>
+                        <span id="mode-indicator" class="text-[10px] bg-neutral-700 px-1.5 py-0.5 rounded">Metric</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="text-xs text-neutral-400 mb-1">Temperature</div>
+                        <div id="celsius-btn"
+                            class="p-2 hover:bg-neutral-700 rounded text-Neutral-0 cursor-pointer flex justify-between items-center text-sm">
+                            Celsius (°C) <img src="./assets/images/icon-checkmark.svg" alt="check"
+                                class="w-4 h-4 temp-check">
+                        </div>
+                        <div id="fahrenheit-btn"
+                            class="p-2 hover:bg-neutral-700 rounded cursor-pointer text-sm text-neutral-300 flex justify-between items-center">
+                            Fahrenheit (°F) <img src="./assets/images/icon-checkmark.svg" alt="check"
+                                class="w-4 h-4 temp-check hidden">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="text-xs text-neutral-400 mb-1">Wind Speed</div>
+                        <div id="kmh-btn"
+                            class="p-2 hover:bg-neutral-700 text-Neutral-0 rounded cursor-pointer flex justify-between items-center text-sm">
+                            km/h <img src="./assets/images/icon-checkmark.svg" alt="check" class="w-4 h-4 wind-check">
+                        </div>
+                        <div id="mph-btn"
+                            class="p-2 hover:bg-neutral-700 rounded cursor-pointer text-sm text-neutral-300 flex justify-between items-center">
+                            mph <img src="./assets/images/icon-checkmark.svg" alt="check"
+                                class="w-4 h-4 wind-check hidden">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="text-xs text-neutral-400 mb-1">Precipitation</div>
+                        <div id="mm-btn"
+                            class="p-2 hover:bg-neutral-700 text-Neutral-0 rounded cursor-pointer flex justify-between items-center text-sm">
+                            millimeters(mm) <img src="./assets/images/icon-checkmark.svg" alt="check"
+                                class="w-4 h-4 precip-check">
+                        </div>
+                        <div id="inches-btn"
+                            class="p-2 hover:bg-neutral-700 rounded cursor-pointer text-sm text-neutral-300 flex justify-between items-center">
+                            inches(in) <img src="./assets/images/icon-checkmark.svg" alt="check"
+                                class="w-4 h-4 precip-check hidden">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="search-section-wrapper" class="mb-10">
+            <h1 id="my-h1" class="text-Neutral-0 text-3xl text-center p-7 md:text-4xl">How's the sky looking today?</h1>
+            <section id="input-container">
+                <div class="flex flex-col gap-y-3 w-full md:flex-row md:justify-center md:gap-3">
+                    <div class="relative w-full max-md:max-w-[700px] md:w-[500px]">
+                        <input type="text" placeholder="Search for a place.." id="search-input"
+                            aria-label="Search for a place"
+                            class="bg-Neutral-600 text-Neutral-0 py-3 pl-16 w-full rounded-lg border-0 focus:outline-none cursor-pointer">
+                        <img src="./assets/images/icon-search.svg" alt="search icon"
+                            class="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none">
+                        <div id="search-dropdown"
+                            class="hidden absolute left-0 right-0 mt-2 bg-Neutral-700 text-Neutral-0 rounded-lg p-3 shadow-lg border border-Neutral-600 z-50 flex items-center gap-3">
+                            <img src="./assets/images/icon-loading.svg" alt="loading" class="w-5 h-5 animate-spin">
+                            <span class="text-sm">Search in progress</span>
+                        </div>
+                    </div>
+                    <button id="search-btn"
+                        class="text-Neutral-0 py-3 rounded-lg bg-Blue-500 max-md:max-w-[700px] md:w-[100px] cursor-pointer">Search</button>
+                </div>
+            </section>
+        </div>
+
+        <main id="weather-container" class="space-y-6">
+
+            <section>
+                <div class="inline-grid max-sm:grid-1 w-full gap-4 md:grid-cols-3 md:gap-y-6 mb-10">
+                    <div id="today-card"
+                        class="max-md:bg-[url('./assets/images/bg-today-small.svg')] md:bg-[url('./assets/images/bg-today-large.svg')] bg-cover bg-no-repeat
+                        h-75 rounded-lg text-Neutral-0 flex flex-col items-center gap-6 pt-8 md:flex-row md:justify-between md:px-4 md:col-span-2 md:h-64">
+                        <div class="flex flex-col gap-2 md:text-left">
+                            <span id="loca" class="text-3xl"></span>
+                            <span id="date" class="text-Neutral-200"></span>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <span class=""><img class="w-[100px] h-[100%]" src="./assets/images/icon-sunny.webp"
+                                    alt="sunny icon"></span>
+                            <span id="degree" class="max-md:text-9xl font-bold"></span>
+                        </div>
+                    </div>
+                    <div
+                        class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-2 md:order-3 md:col-span-2 text-left">
+                        <div
+                            class="bg-Neutral-600 text-Neutral-0 h-24 rounded-md p-3 flex flex-col wrap-break-word gap-3">
+                            <span class="text-Neutral-200">Feels like</span>
+                            <span id="feel"></span>
+                        </div>
+                        <div
+                            class="bg-Neutral-600 text-Neutral-0 h-24 rounded-md p-3 flex flex-col wrap-break-word gap-3">
+                            <span class="text-Neutral-200">Humidity</span>
+                            <span id="humidity"></span>
+                        </div>
+                        <div
+                            class="bg-Neutral-600 text-Neutral-0 h-24 rounded-md p-3 flex flex-col wrap-break-word gap-3">
+                            <span class="text-Neutral-200">Wind</span>
+                            <span id="wind"></span>
+                        </div>
+                        <div
+                            class="bg-Neutral-600 text-Neutral-0 h-24 rounded-md p-3 flex flex-col wrap-break-word gap-3">
+                            <span class="text-Neutral-200">Precipitation</span>
+                            <span id="prec"></span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-2 order-4 md:col-span-2">
+                        <div class="col-span-full">
+                            <h3 class="text-Neutral-0 text-left">Daily forecast</h3>
+                        </div>
+
+                        <!--Daily forecast goes in here-->
+                        <div id="daily-forecast-container" class="contents"></div>
+                    </div>
+                    <div class="bg-Neutral-700 max-md:order-4 p-3 rounded-lg md:order-1 md:row-span-3">
+                        <div class="flex justify-between mb-3">
+                            <span class="text-Neutral-0">Hourly forecast</span>
+                            <select name="forecast-day" id="hourly-day-select"
+                                aria-label="Select day for hourly forecast"
+                                class="bg-neutral-800 text-neutral-0 rounded-md px-3 py-1.5 hover:bg-neutral-700 transition-colors text-Neutral-0 cursor-pointer lg:pr-16">
+                                <!--days goes in here-->
+                            </select>
+                        </div>
+
+                        <div>
+                            <!--hourly slot goes in here-->
+                            <div id="hourly-forecast-container" class="space-y-2"></div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+        </main>
+
+        <div id="error-container" class="flex flex-col items-center mt-24 text-Neutral-0 space-y-4">
+            <img src="./assets/images/icon-error.svg" alt="error icon" class="w-12 h-12">
+            <h2 class="text-4xl">Something went wrong</h2>
+            <p>We couldn't connect to the server(API error). Please try again in few moments.</p>
+            <button id="retry-btn"
+                class="flex justify-center items-center gap-2 py-1.5 px-4  bg-Neutral-700 rounded-md text-sm cursor-pointer"><img
+                    src="assets/images/icon-retry.svg" alt="">Retry</button>
+        </div>
+
+        <div id="no-result" class="text-center mt-10 text-Neutral-0">
+            <h3 class="text-xl">No search result found!</h3>
+        </div>
+
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>

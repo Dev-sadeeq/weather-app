@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=League+Spartan:wght@100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=League+Spartan:wght@100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --color-Neutral-900: hsl(243, 96%, 9%);
+    --color-Neutral-800: hsl(243, 27%, 20%);
+    --color-Neutral-700: hsl(243, 23%, 24%);
+    --color-Neutral-600: hsl(243, 23%, 30%);
+    --color-Neutral-300: hsl(240, 6%, 70%);
+    --color-Neutral-200: hsl(250, 6%, 84%);
+    --color-Neutral-0: hsl(0, 0%, 100%);
+    --color-Orange-500: hsl(28, 100%, 52%);
+    --color-Blue-500: hsl(233, 67%, 56%);
+    --color-Blue-700: hsl(248, 70%, 36%);
+}
+
+@layer base {
+    body {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        height: 100vh;
+        padding: 35px;
+        background-color: var(--color-Neutral-900);
+        font-family: "Bricolage Grotesque", "DM Sans", sans-serif;
+    }
+}
+
+.hidden {
+    display: none;
+}
